@@ -12,6 +12,7 @@ Copyright 2010.
 To run the app via Visual Studio:
 
 * Open the `ShipIt.sln` solution by going to `File` -> `Open` -> `Project/Solution`
+* Add Microsoft.NETFramework.ReferenceAssemblies 
 * Add a connections.config to both the ShipIt and ShipItTest projects, adding a connection string to each e.g.
 
 ```
