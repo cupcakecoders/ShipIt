@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using ShipIt.Controllers;
 using ShipIt.Exceptions;
 using ShipIt.Models.ApiModels;
@@ -12,7 +12,7 @@ using ShipItTest.Builders;
 
 namespace ShipItTest
 {
-    [TestClass]
+    [TestFixture]
     public class EmployeeControllerTests : AbstractBaseTest
     {
         EmployeeController employeeController = new EmployeeController(new EmployeeRepository());
@@ -21,7 +21,7 @@ namespace ShipItTest
         private const string NAME = "Gissell Sadeem";
         private const int WAREHOUSE_ID = 1;
 
-        [TestMethod]
+        [Test]
         public void TestRoundtripEmployeeRepository()
         {
             onSetUp();
@@ -32,7 +32,7 @@ namespace ShipItTest
             Assert.AreEqual(employeeRepository.GetEmployeeByName(employee.Name).WarehouseId, employee.WarehouseId);
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetEmployeeByName()
         {
             onSetUp();
@@ -45,7 +45,7 @@ namespace ShipItTest
             Assert.IsTrue(result.Success);
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetEmployeesByWarehouseId()
         {
             onSetUp();
@@ -62,7 +62,7 @@ namespace ShipItTest
             Assert.IsTrue(EmployeesAreEqual(correctEmployeeB, result.Last()));
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetNonExistentEmployee()
         {
             onSetUp();
@@ -77,7 +77,7 @@ namespace ShipItTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetEmployeeInNonexistentWarehouse()
         {
             onSetUp();
@@ -92,7 +92,7 @@ namespace ShipItTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestAddEmployees()
         {
             onSetUp();
@@ -107,7 +107,7 @@ namespace ShipItTest
             Assert.IsTrue(EmployeesAreEqual(new Employee(databaseEmployee), correctDatabaseEmploye));
         }
 
-        [TestMethod]
+        [Test]
         public void TestDeleteEmployees()
         {
             onSetUp();
@@ -128,7 +128,7 @@ namespace ShipItTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestDeleteNonexistentEmployee()
         {
             onSetUp();
@@ -145,7 +145,7 @@ namespace ShipItTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestAddDuplicateEmployee()
         {
             onSetUp();

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using ShipIt.Controllers;
 using ShipIt.Exceptions;
 using ShipIt.Models.ApiModels;
@@ -11,7 +11,7 @@ using ShipItTest.Builders;
 
 namespace ShipItTest
 {
-    [TestClass]
+    [TestFixture]
     public class ProductControllerTests : AbstractBaseTest
     {
         ProductController productController = new ProductController(new ProductRepository());
@@ -22,7 +22,7 @@ namespace ShipItTest
         // private static readonly Employee EMPLOYEE = new EmployeeBuilder().setWarehouseId(WAREHOUSE_ID).CreateEmployee();
         private const string GTIN = "0000346374230";
 
-        [TestMethod]
+        [Test]
         public void TestRoundtripProductRepository()
         {
             onSetUp();
@@ -32,7 +32,7 @@ namespace ShipItTest
             Assert.AreEqual(productRepository.GetProductByGtin(product.Gtin).Gtin, product.Gtin);
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetProduct()
         {
             onSetUp();
@@ -45,7 +45,7 @@ namespace ShipItTest
             Assert.IsTrue(result.Success);
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetNonexistentProduct()
         {
             onSetUp();
@@ -59,7 +59,7 @@ namespace ShipItTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestAddProducts()
         {
             onSetUp();
@@ -74,7 +74,7 @@ namespace ShipItTest
             ProductsAreEqual(new Product(databaseProduct), new Product(correctDatabaseProduct));
         }
 
-        [TestMethod]
+        [Test]
         public void TestAddPreexistingProduct()
         {
             onSetUp();
@@ -93,7 +93,7 @@ namespace ShipItTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestAddDuplicateProduct()
         {
             onSetUp();
@@ -111,7 +111,7 @@ namespace ShipItTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestDiscontinueProduct()
         {
             onSetUp();
@@ -125,7 +125,7 @@ namespace ShipItTest
             Assert.IsTrue(result.Success);
         }
 
-        [TestMethod]
+        [Test]
         public void TestDiscontinueNonexistentProduct()
         {
             onSetUp();
@@ -140,7 +140,7 @@ namespace ShipItTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestDiscontinueNonexistantProduct()
         {
             onSetUp();

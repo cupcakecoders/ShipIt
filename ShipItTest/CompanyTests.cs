@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using ShipIt.Controllers;
 using ShipIt.Exceptions;
 using ShipIt.Models.ApiModels;
@@ -11,7 +11,7 @@ using ShipItTest.Builders;
 
 namespace ShipItTest
 {
-    [TestClass]
+    [TestFixture]
     public class CompanyControllerTests : AbstractBaseTest
     {
         CompanyController companyController = new CompanyController(new CompanyRepository());
@@ -19,7 +19,7 @@ namespace ShipItTest
 
         private const string GCP = "0000346";
 
-        [TestMethod]
+        [Test]
         public void TestRoundtripCompanyRepository()
         {
             onSetUp();
@@ -28,7 +28,7 @@ namespace ShipItTest
             Assert.AreEqual(companyRepository.GetCompany(company.Gcp).Name, company.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetCompanyByGcp()
         {
             onSetUp();
@@ -41,7 +41,7 @@ namespace ShipItTest
             Assert.IsTrue(result.Success);
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetNonExistentCompany()
         {
             onSetUp();
@@ -56,7 +56,7 @@ namespace ShipItTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestAddCompanies()
         {
             onSetUp();

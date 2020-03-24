@@ -17,7 +17,7 @@ To run the app via Visual Studio:
 
 ```
 <connectionStrings>
-  <add name="MyPostgres" providerName="System.Data.SqlClient" connectionString="Server=127.0.0.1;Port=5432;Database=ShipItTest;User Id=postgres; Password=password;" />
+  <host=localhost;port=5432;dbname=shipit;user=postgres;password=password />
 </connectionStrings>
 ```
 
@@ -47,3 +47,5 @@ which backs this application.  These are available under `Services` -> `RDS` -> 
 
 Run the tests in Visual Studio by right clicking on the `ShipItTest` project and
 choosing "Run Tests".
+
+

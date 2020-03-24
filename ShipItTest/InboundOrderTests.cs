@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using ShipIt.Controllers;
 using ShipIt.Exceptions;
 using ShipIt.Models.ApiModels;
@@ -14,7 +14,7 @@ using ShipItTest.Builders;
 
 namespace ShipItTest
 {
-    [TestClass]
+    [TestFixture]
     public class InboundOrderControllerTests : AbstractBaseTest
     {
         InboundOrderController inboundOrderController = new InboundOrderController(
@@ -48,7 +48,7 @@ namespace ShipItTest
             productId = product.Id;
         }
 
-        [TestMethod]
+        [Test]
         public void TestCreateOrderNoProductsHeld()
         {
             onSetUp();
@@ -60,7 +60,7 @@ namespace ShipItTest
             Assert.AreEqual(inboundOrder.OrderSegments.Count(), 0);
         }
 
-        [TestMethod]
+        [Test]
         public void TestCreateOrderProductHoldingNoStock()
         {
             onSetUp();
@@ -73,7 +73,7 @@ namespace ShipItTest
             Assert.AreEqual(orderSegment.Company.Gcp, GCP);
         }
 
-        [TestMethod]
+        [Test]
         public void TestCreateOrderProductHoldingSufficientStock()
         {
             onSetUp();
@@ -84,7 +84,7 @@ namespace ShipItTest
             Assert.AreEqual(inboundOrder.OrderSegments.Count(), 0);
         }
 
-        [TestMethod]
+        [Test]
         public void TestCreateOrderDiscontinuedProduct()
         {
             onSetUp();
@@ -96,7 +96,7 @@ namespace ShipItTest
             Assert.AreEqual(inboundOrder.OrderSegments.Count(), 0);
         }
 
-        [TestMethod]
+        [Test]
         public void TestProcessManifest()
         {
             onSetUp();
@@ -121,7 +121,7 @@ namespace ShipItTest
             Assert.AreEqual(stock.held, quantity);
         }
 
-        [TestMethod]
+        [Test]
         public void TestProcessManifestRejectsDodgyGcp()
         {
             onSetUp();
@@ -152,7 +152,7 @@ namespace ShipItTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestProcessManifestRejectsUnknownProduct()
         {
             onSetUp();
@@ -188,7 +188,7 @@ namespace ShipItTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestProcessManifestRejectsDuplicateGtins()
         {
             onSetUp();
