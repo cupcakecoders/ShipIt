@@ -11,7 +11,6 @@ using ShipItTest.Builders;
 
 namespace ShipItTest
 {
-    [TestFixture]
     public class CompanyControllerTests : AbstractBaseTest
     {
         CompanyController companyController = new CompanyController(new CompanyRepository());

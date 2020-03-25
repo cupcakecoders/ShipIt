@@ -105,7 +105,6 @@ namespace ShipIt.Controllers
             stockRepository.RemoveStock(request.WarehouseId, lineItems);
             // here
             // and now return the number of trucks etc
-            
         }
     }
 }

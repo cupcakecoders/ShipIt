@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
 using ShipIt.Models.ApiModels;
 using ShipIt.Models.DataModels;
 using ShipIt.Repositories;
@@ -21,37 +20,39 @@ namespace ShipIt.Services
         {
             IEnumerable<Truck> getTrucks = new List<Truck>();
             
+            foreach (var lineItem in lineItems)
+            {
+                var product = productRepository.GetProductById(lineItem.ProductId);
+                var batch = new Batch
+                {
+                    Gtin = product.Gtin,
+                    Quantity = lineItem.Quantity,
+                    ItemWeight = product.Weight,
+                    ProductName = product.Name
+                };
+            }
             return null;
         }
 
-        public List<ProductDataModel> GetProductDetails(List<StockAlteration> lineItems)
+        public List<Truck> GetTrucks(List<Batch> batchedItems)
         {
-            var lineItemPid = lineItems.Select(item => item.ProductId);
-            List<ProductDataModel> productsById = new List<ProductDataModel>();
+            List<Truck> allTrucks = new List<Truck>();
 
-            foreach (var pid in lineItemPid)
+            foreach (var batch in batchedItems)
             {
-                var productDataModelId = productRepository.GetProductById(pid);
-                productsById.Add(productDataModelId);
+                if (allTrucks.Count < 1)
+                {
+                    CreateTruck();
+                }
             }
-            return productsById;
+
+            return allTrucks;
         }
 
-        public List<Batch> getBatch(List<ProductDataModel> productsById)
+        public Truck CreateTruck()
         {
-            Batch newbatch = new Batch();
-
-            List<Batch> batchedItems = new List<Batch>();
-
-            foreach (var product in productsById)
-            {
-                newbatch.Gtin = product.Gtin;
-                newbatch.ItemWeight = product.Weight;
-                newbatch.ProductName = product.Name;
-                
-                batchedItems.Add(newbatch);
-            }
-            return batchedItems;
+            Truck newTruck = new Truck();
+            return newTruck;
         }
         
         /*public OutboundOrderTrucksResponse GetTrucks(List<StockAlteration> lineItems)

@@ -24,7 +24,6 @@ namespace ShipIt.Models.ApiModels
         private ProductDataModel _productDataModel;
         private StockAlteration _stockAlteration;
         
-        public int ProductId { get; set; }
         public string Gtin { get; set; }
         public string ProductName { get; set; }
         public int Quantity { get; set; }
@@ -33,7 +32,6 @@ namespace ShipIt.Models.ApiModels
 
         public Batch()
         {
-            ProductId = _productDataModel.Id;
             Gtin = _productDataModel.Gtin;
             ProductName = _productDataModel.Name;
             Quantity = _stockAlteration.Quantity;
