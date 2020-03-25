@@ -20,6 +20,7 @@ namespace ShipIt.Services
         public OutboundOrderTrucksResponse GetTrucks(List<StockAlteration> lineItems)
         {
             IEnumerable<Truck> getTrucks = new List<Truck>();
+            
             return null;
         }
 
