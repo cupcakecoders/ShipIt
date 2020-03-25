@@ -41,6 +41,7 @@ namespace ShipIt.Controllers
             var productDataModels = productRepository.GetProductsByGtin(gtins);
             var products = productDataModels.ToDictionary(p => p.Gtin, p => new Product(p));
             
+            
             //gets list of product_ids and quantity from order request and puts into a stock alteration list
             var lineItems = new List<StockAlteration>();
             //list of product ids from order request
@@ -60,6 +61,7 @@ namespace ShipIt.Controllers
                     productIds.Add(product.Id);
                 }
             }
+            
             
             TruckService newTrucks = new TruckService();
             newTrucks.GetTrucks(lineItems);

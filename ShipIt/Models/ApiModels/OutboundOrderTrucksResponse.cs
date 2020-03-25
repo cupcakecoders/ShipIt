@@ -39,6 +39,5 @@ namespace ShipIt.Models.ApiModels
             Quantity = _stockAlteration.Quantity;
             ItemWeight = _productDataModel.Weight; 
         }
-    
     }
 }

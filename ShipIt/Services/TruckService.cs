@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using ShipIt.Models.ApiModels;
+using ShipIt.Models.DataModels;
+using ShipIt.Repositories;
 
 namespace ShipIt.Services
 {
@@ -12,19 +15,42 @@ namespace ShipIt.Services
     public class TruckService : ITruckService
     {
         private OutboundOrderTrucksResponse _outboundOrderTrucksResponse;
+        private readonly IProductRepository productRepository;
+
         public OutboundOrderTrucksResponse GetTrucks(List<StockAlteration> lineItems)
         {
             IEnumerable<Truck> getTrucks = new List<Truck>();
-            //create batch from lineitems
-            //create truck from batch
             return null;
         }
 
-        public List<Batch> GetBatches(List<StockAlteration> lineItems)
+        public List<ProductDataModel> GetProductDetails(List<StockAlteration> lineItems)
         {
-            List<Batch> batchedUpItems = new List<Batch>();
+            var lineItemPid = lineItems.Select(item => item.ProductId);
+            List<ProductDataModel> productsById = new List<ProductDataModel>();
 
-            return batchedUpItems;
+            foreach (var pid in lineItemPid)
+            {
+                var productDataModelId = productRepository.GetProductById(pid);
+                productsById.Add(productDataModelId);
+            }
+            return productsById;
+        }
+
+        public List<Batch> getBatch(List<ProductDataModel> productsById)
+        {
+            Batch newbatch = new Batch();
+
+            List<Batch> batchedItems = new List<Batch>();
+
+            foreach (var product in productsById)
+            {
+                newbatch.Gtin = product.Gtin;
+                newbatch.ItemWeight = product.Weight;
+                newbatch.ProductName = product.Name;
+                
+                batchedItems.Add(newbatch);
+            }
+            return batchedItems;
         }
         
         /*public OutboundOrderTrucksResponse GetTrucks(List<StockAlteration> lineItems)
