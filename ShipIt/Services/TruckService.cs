@@ -51,7 +51,8 @@ namespace ShipIt.Services
             {
                 if (allTrucks.Count <= 0)
                 {
-                    CreateTruck(batch);
+                    var newTruck = CreateTruck(batch);
+                    allTrucks.Add(newTruck);
                 } 
                 if (allTrucks.Count >= 1)
                 {
@@ -66,7 +67,6 @@ namespace ShipIt.Services
                     }
                 }
             }
-
             return allTrucks;
         }
 
