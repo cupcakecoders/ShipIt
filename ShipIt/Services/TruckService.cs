@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ShipIt.Models.ApiModels;
 using ShipIt.Models.DataModels;
@@ -60,10 +61,10 @@ namespace ShipIt.Services
                     }
                     else
                     {
-                        //loop again until a truck with remaingweight <= batch is reached
+                        var truckWithCapacity = allTrucks.Find(truck => truck.RemainingWeight >= (batch.TotalWeight));
+                        truckWithCapacity.Batches.Add(batch);
                     }
                 }
-                
             }
 
             return allTrucks;
