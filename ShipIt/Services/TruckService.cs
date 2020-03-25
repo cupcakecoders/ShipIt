@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NUnit.Framework;
 using ShipIt.Models.ApiModels;
 
 namespace ShipIt.Services
@@ -14,14 +15,18 @@ namespace ShipIt.Services
         public OutboundOrderTrucksResponse GetTrucks(List<StockAlteration> lineItems)
         {
             IEnumerable<Truck> getTrucks = new List<Truck>();
-
-            foreach (var item in lineItems)
-            {
-                
-            }
-            
+            //create batch from lineitems
+            //create truck from batch
             return null;
         }
+
+        public List<Batch> GetBatches(List<StockAlteration> lineItems)
+        {
+            List<Batch> batchedUpItems = new List<Batch>();
+
+            return batchedUpItems;
+        }
+        
         /*public OutboundOrderTrucksResponse GetTrucks(List<StockAlteration> lineItems)
         {
             throw new System.NotImplementedException();
