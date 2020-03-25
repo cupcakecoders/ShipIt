@@ -60,7 +60,7 @@ namespace ShipIt.Services
                     }
                     else
                     {
-                        loop again until a truck with remaingweight <= batch is reached
+                        //loop again until a truck with remaingweight <= batch is reached
                     }
                 }
                 
