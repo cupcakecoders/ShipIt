@@ -20,7 +20,7 @@ namespace ShipIt.Services
         {
             _productRepository = productRepository;
         }
-        private List<Batch> GetBatches(List<StockAlteration> lineItems)
+        public List<Batch> GetBatches(List<StockAlteration> lineItems)
         {
             List<Batch> batchList = new List<Batch>();
             

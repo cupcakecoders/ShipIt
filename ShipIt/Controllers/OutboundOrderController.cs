@@ -27,7 +27,7 @@ namespace ShipIt.Controllers
         public OutboundOrderTrucksResponse Post([FromBody] OutboundOrderRequestModel request)
         {
             log.Info(String.Format("Processing outbound order: {0}", request));
-            //creates a list of products from an order, throws an error on attempt to add same product twice.
+
             var gtins = new List<String>();
             foreach (var orderLine in request.OrderLines)
             {
@@ -43,10 +43,7 @@ namespace ShipIt.Controllers
             var productDataModels = productRepository.GetProductsByGtin(gtins);
             var products = productDataModels.ToDictionary(p => p.Gtin, p => new Product(p));
 
-
-            //gets list of product_ids and quantity from order request and puts into a stock alteration list
             var lineItems = new List<StockAlteration>();
-            //list of product ids from order request
             var productIds = new List<int>();
             var errors = new List<string>();
 
@@ -68,13 +65,12 @@ namespace ShipIt.Controllers
             {
                 throw new NoSuchEntityException(string.Join("; ", errors));
             }
-
-            //dictionary of all stock
+            
             var stock = stockRepository.GetStockByWarehouseAndProductIds(request.WarehouseId, productIds);
 
             var orderLines = request.OrderLines.ToList();
             errors = new List<string>();
-            //check if stock available
+
             for (int i = 0; i < lineItems.Count; i++)
             {
                 var lineItem = lineItems[i];
