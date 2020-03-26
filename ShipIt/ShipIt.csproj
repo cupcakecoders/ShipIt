@@ -51,6 +51,14 @@
       <HintPath>..\packages\FakeItEasy.5.5.0\lib\net40\FakeItEasy.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentMigrator.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Abstractions.2.0.0\lib\net40\FluentMigrator.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.Core.2.0.0\lib\net40\FluentMigrator.Runner.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
@@ -118,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Migrations\Migration_26032020_13_50.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

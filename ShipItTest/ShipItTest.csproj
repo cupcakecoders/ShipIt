@@ -44,6 +44,14 @@
       <HintPath>..\packages\FakeItEasy.5.5.0\lib\net40\FakeItEasy.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentMigrator.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Abstractions.2.0.0\lib\net40\FluentMigrator.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05">
+      <HintPath>..\packages\FluentMigrator.Runner.Core.2.0.0\lib\net40\FluentMigrator.Runner.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.2.1.0\lib\net40\Mono.Security.dll</HintPath>
     </Reference>
@@ -116,6 +124,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Migrations\Migration_26032020_13_50.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
