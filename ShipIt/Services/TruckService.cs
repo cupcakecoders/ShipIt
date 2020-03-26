@@ -9,28 +9,24 @@ namespace ShipIt.Services
 {
     public interface ITruckService
     {
-        OutboundOrderTrucksResponse GetTrucks(List<StockAlteration> lineItems);
+        List<Truck> GetTrucks(List<StockAlteration> lineItems);
     }
 
     public class TruckService : ITruckService
     {
-        private OutboundOrderTrucksResponse _outboundOrderTrucksResponse;
-        private readonly IProductRepository productRepository;
-
-        public OutboundOrderTrucksResponse GetTrucks(List<StockAlteration> lineItems)
+        private readonly IProductRepository _productRepository;
+        //line items go to batches which get put into trucks
+        public TruckService(IProductRepository productRepository)
         {
-            IEnumerable<Truck> getTrucks = new List<Truck>();
-
-            return null;
+            _productRepository = productRepository;
         }
-
-        public List<Batch> GetBatches(List<StockAlteration> lineItems)
+        private List<Batch> GetBatches(List<StockAlteration> lineItems)
         {
             List<Batch> batchList = new List<Batch>();
             
             foreach (var lineItem in lineItems)
             {
-                var product = productRepository.GetProductById(lineItem.ProductId);
+                var product = _productRepository.GetProductById(lineItem.ProductId);
                 var batch = new Batch
                 {
                     Gtin = product.Gtin,
@@ -43,24 +39,25 @@ namespace ShipIt.Services
             return batchList;
         }
         
-        public List<Truck> GetTrucks(List<Batch> batchedItems)
+        public List<Truck> GetTrucks(List<StockAlteration> lineItems)
         {
+            var batchedItems = GetBatches(lineItems);
             List<Truck> allTrucks = new List<Truck>();
             
             foreach (var batch in batchedItems)
             {
-                if (allTrucks.Count <= 0)
+                if (allTrucks.Count == 0)
                 {
                     var newTruck = CreateTruck(batch);
                     allTrucks.Add(newTruck);
                 } 
-                if (allTrucks.Count >= 1)
+                else
                 {
                     if (batch.TotalWeight <= allTrucks[0].RemainingWeight)
                     {
                         allTrucks[0].Batches.Add(batch);
                     }
-                    else
+                    else //boolean to see if there are any trucks with capacity? If not then create new truck.
                     {
                         var truckWithCapacity = allTrucks.Find(truck => truck.RemainingWeight >= (batch.TotalWeight));
                         truckWithCapacity.Batches.Add(batch);
@@ -72,7 +69,7 @@ namespace ShipIt.Services
 
         public Truck CreateTruck(Batch batch)
         {
-            var truck = new Truck();
+            var truck = new Truck(batch);
 
             if (batch.TotalWeight <= truck.RemainingWeight)
             {

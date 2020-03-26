@@ -24,7 +24,7 @@ namespace ShipIt.Controllers
             this.productRepository = productRepository;
         }
 
-        public void Post([FromBody]OutboundOrderRequestModel request)
+        public OutboundOrderTrucksResponse Post([FromBody] OutboundOrderRequestModel request)
         {
             log.Info(String.Format("Processing outbound order: {0}", request));
             //creates a list of products from an order, throws an error on attempt to add same product twice.
@@ -33,15 +33,17 @@ namespace ShipIt.Controllers
             {
                 if (gtins.Contains(orderLine.gtin))
                 {
-                    throw new ValidationException(String.Format("Outbound order request contains duplicate product gtin: {0}", orderLine.gtin));
+                    throw new ValidationException(
+                        String.Format("Outbound order request contains duplicate product gtin: {0}", orderLine.gtin));
                 }
+
                 gtins.Add(orderLine.gtin);
             }
 
             var productDataModels = productRepository.GetProductsByGtin(gtins);
             var products = productDataModels.ToDictionary(p => p.Gtin, p => new Product(p));
-            
-            
+
+
             //gets list of product_ids and quantity from order request and puts into a stock alteration list
             var lineItems = new List<StockAlteration>();
             //list of product ids from order request
@@ -61,16 +63,12 @@ namespace ShipIt.Controllers
                     productIds.Add(product.Id);
                 }
             }
-            
-            
-            TruckService newTrucks = new TruckService();
-            newTrucks.GetTrucks(lineItems);
-            
+
             if (errors.Count > 0)
             {
                 throw new NoSuchEntityException(string.Join("; ", errors));
             }
-            
+
             //dictionary of all stock
             var stock = stockRepository.GetStockByWarehouseAndProductIds(request.WarehouseId, productIds);
 
@@ -103,8 +101,15 @@ namespace ShipIt.Controllers
             }
 
             stockRepository.RemoveStock(request.WarehouseId, lineItems);
-            // here
-            // and now return the number of trucks etc
+
+            TruckService newTrucks = new TruckService(productRepository);
+            var trucks = newTrucks.GetTrucks(lineItems);
+            var response = new OutboundOrderTrucksResponse
+            {
+                Trucks = trucks,
+                NumberOfTrucks = trucks.Count
+            };
+            return response;
         }
     }
 }
