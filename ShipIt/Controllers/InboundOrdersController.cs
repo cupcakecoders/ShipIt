@@ -64,7 +64,7 @@ namespace ShipIt.Controllers
                         });
                 }
             }
-
+            //db call
             log.Debug(String.Format("Constructed order lines: {0}", orderlinesByCompany));
 
             var orderSegments = orderlinesByCompany.Select(ol => new OrderSegment()
@@ -72,7 +72,7 @@ namespace ShipIt.Controllers
                 OrderLines = ol.Value,
                 Company = ol.Key
             });
-
+            //db call
             log.Info("Constructed inbound order");
 
             return new InboundOrderResponse()

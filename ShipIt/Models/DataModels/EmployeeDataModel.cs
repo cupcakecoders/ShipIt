@@ -9,7 +9,8 @@ namespace ShipIt.Models.DataModels
 {
     public class EmployeeDataModel : DataModel
     {
-        [DatabaseColumnName("name")]
+        public int Id { get; set; }
+        [DatabaseColumnName("id")]
         public string Name { get; set; }
         [DatabaseColumnName("w_id")]
         public int WarehouseId { get; set; }
@@ -26,10 +27,12 @@ namespace ShipIt.Models.DataModels
 
         public EmployeeDataModel(Employee employee)
         {
+            this.Id = employee.Id;
             this.Name = employee.Name;
             this.WarehouseId = employee.WarehouseId;
             this.Role = MapApiRoleToDatabaseRole(employee.role);
             this.Ext = employee.ext;
+            
         }
 
         private string MapApiRoleToDatabaseRole(EmployeeRole employeeRole)
